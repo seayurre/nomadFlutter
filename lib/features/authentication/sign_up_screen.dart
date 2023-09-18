@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/login_screen.dart';
+import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
+
+  void onLoginTap(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +38,9 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
+              Gaps.v40,
+              AuthButton(text: 'Use Phone or Email'),
+              AuthButton(text: 'Continue with Apple'),
             ],
           ),
         ),
@@ -46,12 +59,15 @@ class SignUpScreen extends StatelessWidget {
                 'Alreaady have an account?',
               ),
               Gaps.h5,
-              Text(
-                'Log in',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w600,
-                ), //전에 배웠던 상위 클래스에서 theme 불러오기
+              GestureDetector(
+                onTap: () => onLoginTap(context),
+                child: Text(
+                  'Log in',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.w600,
+                  ), //전에 배웠던 상위 클래스에서 theme 불러오기
+                ),
               ),
             ],
           ),
