@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/email_screen.dart';
+import 'package:tiktok_clone/features/authentication/widgets/forn_button.dart';
 
 class UsernameScreen extends StatefulWidget {
   const UsernameScreen({super.key});
@@ -26,6 +28,21 @@ class _UsernameScreenState extends State<UsernameScreen> {
   }
 
   @override
+  void dispose() {
+    _usernameController.dispose();
+    super.dispose();
+  }
+
+  void _onNextTap() {
+    if (_username.isEmpty) return;
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const EmailScreen(),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -41,18 +58,10 @@ class _UsernameScreenState extends State<UsernameScreen> {
           children: [
             Gaps.v40,
             const Text(
-              "Create Username",
+              "What is your email?",
               style: TextStyle(
                 fontSize: Sizes.size24,
                 fontWeight: FontWeight.w700,
-              ),
-            ),
-            Gaps.v8,
-            const Text(
-              "You can always change this later.",
-              style: TextStyle(
-                fontSize: Sizes.size16,
-                color: Colors.black54,
               ),
             ),
             Gaps.v16,
@@ -60,7 +69,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
               controller: _usernameController,
               cursorColor: Theme.of(context).primaryColor,
               decoration: InputDecoration(
-                hintText: "Username",
+                hintText: "Email",
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,
@@ -74,24 +83,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
               ),
             ),
             Gaps.v16,
-            FractionallySizedBox(
-              widthFactor: 1,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.symmetric(vertical: Sizes.size16),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Sizes.size5),
-                    color: _username.isEmpty
-                        ? Colors.grey.shade300
-                        : Theme.of(context).primaryColor),
-                child: const Text(
-                  'Next',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
+            GestureDetector(
+                onTap: _onNextTap,
+                child: FormButton(disabled: _username.isEmpty)),
           ],
         ),
       ),
