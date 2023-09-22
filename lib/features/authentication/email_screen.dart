@@ -29,7 +29,7 @@ class EmailScreen extends StatelessWidget {
             ),
             Gaps.v8,
             Text(
-              "You can always change this later",
+              "You can always change this later.",
               style: TextStyle(
                 fontSize: Sizes.size16,
                 color: Colors.black54,
